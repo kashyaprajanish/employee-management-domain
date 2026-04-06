@@ -9,7 +9,7 @@ router.get(
   "/:id/salary-calculation",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = parseInt(String(req.params.id), 10);
       if (isNaN(id)) {
         throw new ValidationError("Invalid employee ID");
       }
