@@ -1,23 +1,32 @@
+// Custom error class for API errors
 export class ApiError extends Error {
-  statusCode: number;
-  details?: unknown;
-
-  constructor(message: string, statusCode = 500, details?: unknown) {
+  constructor(
+    public statusCode: number,
+    public message: string,
+    public details?: any,
+  ) {
     super(message);
-    this.statusCode = statusCode;
-    this.details = details;
-    Object.setPrototypeOf(this, new.target.prototype);
+    this.name = "ApiError";
   }
 }
 
 export class ValidationError extends ApiError {
-  constructor(message: string, details?: unknown) {
-    super(message, 400, details);
+  constructor(message: string, details?: any) {
+    super(400, message, details);
+    this.name = "ValidationError";
   }
 }
 
 export class NotFoundError extends ApiError {
-  constructor(message: string) {
-    super(message, 404);
+  constructor(message: string = "Resource not found") {
+    super(404, message);
+    this.name = "NotFoundError";
+  }
+}
+
+export class InternalServerError extends ApiError {
+  constructor(message: string = "Internal server error") {
+    super(500, message);
+    this.name = "InternalServerError";
   }
 }

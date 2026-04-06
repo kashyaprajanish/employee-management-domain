@@ -35,13 +35,13 @@ export const employeeService = {
   },
 
   async update(id: number, data: UpdateEmployeeInput) {
-    // Filter out undefined values to satisfy exactOptionalPropertyTypes
-    const filteredData = Object.fromEntries(
+    const updateData = Object.fromEntries(
       Object.entries(data).filter(([, value]) => value !== undefined),
-    );
+    ) as Record<string, unknown>;
+
     return prisma.employee.update({
       where: { id },
-      data: filteredData,
+      data: updateData,
     });
   },
 

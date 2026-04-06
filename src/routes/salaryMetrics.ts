@@ -4,36 +4,38 @@ import { NotFoundError } from "../utils/errors";
 
 const router = Router();
 
+// GET /by-country/:country - Get salary metrics by country
 router.get(
   "/by-country/:country",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const country = String(req.params.country);
-      const metrics = await salaryService.getMetricsByCountry(country);
+      const country = decodeURIComponent(String(req.params.country));
+      const result = await salaryService.getMetricsByCountry(country);
 
-      if (!metrics) {
-        throw new NotFoundError("Employee data not found for this country");
+      if (!result) {
+        throw new NotFoundError("No employees found in that country");
       }
 
-      res.json(metrics);
+      res.json(result);
     } catch (error) {
       next(error);
     }
   },
 );
 
+// GET /by-job-title/:jobTitle - Get average salary by job title
 router.get(
   "/by-job-title/:jobTitle",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const jobTitle = String(req.params.jobTitle);
-      const metrics = await salaryService.getMetricsByJobTitle(jobTitle);
+      const jobTitle = decodeURIComponent(String(req.params.jobTitle));
+      const result = await salaryService.getMetricsByJobTitle(jobTitle);
 
-      if (!metrics) {
-        throw new NotFoundError("Employee data not found for this job title");
+      if (!result) {
+        throw new NotFoundError("No employees found with that job title");
       }
 
-      res.json(metrics);
+      res.json(result);
     } catch (error) {
       next(error);
     }
