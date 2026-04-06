@@ -11,7 +11,9 @@ module.exports = {
         tsconfig: {
           module: "esnext",
           target: "esnext",
+          moduleResolution: "node",
           esModuleInterop: true,
+          ignoreDeprecations: "6.0",
         },
       },
     ],
