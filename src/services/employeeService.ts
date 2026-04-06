@@ -35,9 +35,13 @@ export const employeeService = {
   },
 
   async update(id: number, data: UpdateEmployeeInput) {
+    const updateData = Object.fromEntries(
+      Object.entries(data).filter(([, value]) => value !== undefined),
+    ) as Record<string, unknown>;
+
     return prisma.employee.update({
       where: { id },
-      data,
+      data: updateData,
     });
   },
 

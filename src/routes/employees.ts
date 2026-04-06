@@ -32,7 +32,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 // GET /employees/:id - Get an employee by ID
 router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(String(req.params.id), 10);
     if (isNaN(id)) {
       throw new ValidationError("Invalid employee ID");
     }
@@ -51,7 +51,7 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 // PUT /employees/:id - Update an employee
 router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(String(req.params.id), 10);
     if (isNaN(id)) {
       throw new ValidationError("Invalid employee ID");
     }
@@ -76,7 +76,7 @@ router.delete(
   "/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = parseInt(String(req.params.id), 10);
       if (isNaN(id)) {
         throw new ValidationError("Invalid employee ID");
       }

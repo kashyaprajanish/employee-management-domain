@@ -9,7 +9,7 @@ router.get(
   "/by-country/:country",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const country = decodeURIComponent(req.params.country);
+      const country = decodeURIComponent(String(req.params.country));
       const result = await salaryService.getMetricsByCountry(country);
 
       if (!result) {
@@ -28,7 +28,7 @@ router.get(
   "/by-job-title/:jobTitle",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const jobTitle = decodeURIComponent(req.params.jobTitle);
+      const jobTitle = decodeURIComponent(String(req.params.jobTitle));
       const result = await salaryService.getMetricsByJobTitle(jobTitle);
 
       if (!result) {

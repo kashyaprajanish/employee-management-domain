@@ -5,6 +5,7 @@ dist/
 dev.db
 test.db
 *.db
+/generated/
 /generated/prisma
 .DS_Store
 coverage/
